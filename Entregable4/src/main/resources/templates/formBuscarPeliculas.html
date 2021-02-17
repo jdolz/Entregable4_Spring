@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title th:text="${titulo}">Insert title here</title>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+		<a class="navbar-brand" href="#">Javier Dolz Martín</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse"
+			data-target="#navbarNav" aria-controls="navbarNav"
+			aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarNav">
+			<ul class="navbar-nav">
+				<li class="nav-item active"><a class="nav-link" th:href="@{/omdb/login}">Home</a></li>
+			</ul>
+		</div>
+	</nav>
+
+	<div class="container">
+		<h1 th:text="${titulo}" class="text-secondary border border-success border-top-0 border-left-0 border-right-0"></h1>
+
+		<div th:object="${usuario}" th:remove="tag">
+			<ul th:if="${#fields.hasErrors('*')}" class="alert alert-danger">
+				<li th:each="err: ${#fields.errors('*')}" th:text="${err}"></li>
+			</ul>
+		</div>
+		
+		<form th:action="@{/omdb/verpelicula}" th:object="${pelicula}" th:method="get">
+			<div class="form-group row">
+				<label class="col-sm-2 col-form-label">Titulo</label>
+				<div class="col-sm-6">
+					<input type="text" th:field="*{Title}" class="form-control"
+						th:errorclass="'form-control alert-danger'" /> <small
+						class="form-text text-danger"
+						th:if="${#fields.hasErrors('Title')}" th:errors="*{Title}"></small>
+				</div>
+			</div>
+			<div class="form-group row">
+				<div class="col-sm-6">
+					<input type="submit" value="Buscar Pelicula" class="btn btn-primary" />
+				</div>
+			</div>
+
+		</form>
+	</div>
+	<div th:if="${pelicula.Title != null}"> 
+	<div class="container">
+	<p th:text="${pelicula.Title}"></p>
+		<p th:text="${pelicula.Director}"></p>
+		<p th:text="${pelicula.Year}"></p>
+		<p th:text="${pelicula.Runtime}"></p>
+		<img th:src="${pelicula.Poster}">
+	</div>
+	<br>
+	<div class="container">
+		<form th:action="@{/omdb/guardarPeliUsuario}" th:method="get">
+			<div class="form-group row">
+				<div class="col-sm-6">
+					<input type="submit" value="Guardar Pelicula" class="btn btn-primary" />
+				</div>
+			</div>
+		</form>
+	</div>
+	</div>
+	<div class="container">
+	<div class="form-group row">
+				<span th:if="${emptyError != null}" class="error">Película no encontrada</span>
+	</div>
+	<div class="form-group row">
+				<span th:if="${logError != null}" class="error">El usuario ya ha guardado esa película</span>
+	</div>
+	</div>
+	<div class="container">
+		<form th:action="@{/omdb/listarPeliculas}" method="get">
+			<div class="form-group row">
+				<div class="col-sm-6">
+					<input type="submit" value="Ver Peliculas" class="btn btn-primary" />
+				</div>
+			</div>
+		</form>
+	</div>
+	
+</body>
+</html>
