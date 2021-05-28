@@ -18,6 +18,7 @@ public class PeliculaDao implements IPeliculaDao {
 
 	@Transactional(readOnly = true)
 	@Override
+	@SuppressWarnings("unchecked")
 	public List<Pelicula> findAll() {
 
 		return em.createQuery("select p from Pelicula p").getResultList();

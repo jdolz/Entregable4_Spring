@@ -11,7 +11,7 @@ import com.example.entregable4.models.entity.Usuario;
 
 
 @Component
-@SessionScope
+@SessionScope 
 public class UsuarioComp {
 
 	private String email;

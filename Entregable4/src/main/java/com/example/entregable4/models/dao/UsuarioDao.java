@@ -23,6 +23,7 @@ public class UsuarioDao implements IUsuarioDao {
 
 	@Transactional(readOnly = true)
 	@Override
+	@SuppressWarnings("unchecked")
 	public List<Usuario> findAll() {
 
 		return em.createQuery("select u from Usuario u").getResultList();

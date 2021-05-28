@@ -2,14 +2,11 @@ package com.example.entregable4.models.entity;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.*;
 
 import com.example.entregable4.models.component.UsuarioComp;
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Entity
 @Table(name = "usuarios")
@@ -23,7 +20,9 @@ public class Usuario implements Serializable {
 	private String email;
 	private String nombre;
 	private String apellido;
+
 	private Integer anioNacimiento;
+
 	private String password;
 
 	@ManyToMany(fetch = FetchType.EAGER)
@@ -90,7 +89,7 @@ public class Usuario implements Serializable {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
+
 	public void copia(UsuarioComp u2) {
 		this.anioNacimiento = u2.getAnioNacimiento();
 		this.apellido = u2.getApellido();

@@ -31,9 +31,9 @@ public class PeliculaUsuarioController {
 	@Autowired
 	private PeticionGetExterna peticion;
 
-	@Autowired
+	@Autowired 
 	private IUsuarioService serviceUsuario;
-	@Autowired
+	@Autowired 
 	private IPeliculaService servicePelicula;
 
 	@Autowired
@@ -43,7 +43,7 @@ public class PeliculaUsuarioController {
 	private UsuarioComp usuarioComp;
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public String login(@ModelAttribute("usuario") Usuario usuario, Model model) {
+	public String login(Usuario usuario, Model model) {
 		model.addAttribute("titulo", "Login");
 		return "index";
 	}
@@ -106,13 +106,13 @@ public class PeliculaUsuarioController {
 
 	@RequestMapping(value = "/verpelicula", method = RequestMethod.GET)
 	public ModelAndView buscarOMDB(@RequestParam(value = "Title") String titulo) throws IOException {
-
+		
 		String busqueda = "http://www.omdbapi.com/?apikey=5fcfd7b0";
 		if (titulo.contains(" ")) {
 			titulo = titulo.replace(' ', '+');
 		}
 		busqueda += "&t=" + titulo;
-		ModelAndView mav = new ModelAndView("formBuscarPeliculas");
+		ModelAndView mav = new ModelAndView("formBuscarPeliculas"); 
 		Usuario usuario = new Usuario();
 
 		String texto = peticion.sendGET(busqueda);
